@@ -27,4 +27,10 @@ public interface Storeable {
      */
     String getDescByID(String issueID);
 
+    void existingNumber(String issueID);
+    Boolean deleteRow(String issueID);
+
+
+
+
 }

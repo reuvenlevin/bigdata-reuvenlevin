@@ -22,6 +22,6 @@ public class Find {
         issueDescr = data.getDescByID(issueID);
         _endTimeMS = System.currentTimeMillis();
 
-        System.out.printf((msgFormat), data.getClass().getSimpleName(), (_endTimeMS - _startTimeMS), issueID, issueDescr);
+        System.out.printf((msgFormat), data.getClass().getSimpleName(), (_endTimeMS - _startTimeMS), issueID,issueDescr);
     }
 }

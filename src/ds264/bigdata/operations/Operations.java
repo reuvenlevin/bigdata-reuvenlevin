@@ -2,9 +2,11 @@ package ds264.bigdata.operations;
 
 import ds264.bigdata.BigdataApp;
 import ds264.bigdata.Storeable;
+import ds264.bigdata.storage.StoreInArray;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 /**
  * Manage all operations that can be tested/benchmarked,
@@ -44,8 +46,10 @@ public class Operations {
         String cmdLine;
         final String prompt = """
                 \nEnter request consisting of:  OPERATION [VALUE [DATACLASS]]
-                    OPERATION := CANNED | GET
-                    GET is followed by: keyValue data-class-to-use""";
+                    OPERATION := CANNED | GET | ADD | DEL
+                    GET is followed by: keyValue data-class-to-use
+                    ADD is followed by: nonexistent issue number followed by a description
+                    DEL is followed by the existing issue number to be deleted""";
         String[] fields;
 
         System.out.println(prompt);
@@ -67,6 +71,26 @@ public class Operations {
                         }
                         Find.searchItems(dataClass, (fields[0]));
                     }
+                    case "ADD" ->{
+                        // Split the String array into 2 strings to get ID and description
+                        fields = fields[1].split(" ",2);
+                        String newIssue = fields[0];
+                        String newDesc = fields[1];
+                        for(Storeable storeable: BigdataApp.storeables){
+                            //Check if ID already exists.
+                            storeable.existingNumber(newIssue);
+                            // If the length of rows is greater than MAX_VALUE an Exception is thrown
+                            if(!storeable.addRow(newIssue, newDesc)){
+                                throw new Exception("Row capacity reached.");
+                            }
+                                //Add a new row containing ID and description
+                                storeable.addRow(newIssue, newDesc);
+
+                        }
+                        System.out.println("issueID: " + newIssue + " Description: " + newDesc + " was added");
+
+                    }
+
                     default -> System.out.println("Unknown Operation: " + fields[0]);
                 }
 

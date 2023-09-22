@@ -60,12 +60,12 @@ public class LoadData {
                     }
                 } else {
                     // for each data structurestoreables = {ArrayList@703}  size = 2 class, pass current row to it
-                    for (Storeable storeable : storeables) {
-                        storeable.addRow(fields[FLD_ID], fields[FLD_AGENCY] + ":" + fields[FLD_DESC]);
+                        for (Storeable storeable : storeables) {
+                            storeable.addRow(fields[FLD_ID], fields[FLD_AGENCY] + ":" + fields[FLD_DESC]);
 
-                        if (rowNum == 1)
-                            firstLastIDs[0] = fields[FLD_ID];   // keep track of first ID
-                    }
+                            if (rowNum == 1)
+                                firstLastIDs[0] = fields[FLD_ID];   // keep track of first ID
+                        }
                 }
 
                 if (rowNum++ >= maxRows)
