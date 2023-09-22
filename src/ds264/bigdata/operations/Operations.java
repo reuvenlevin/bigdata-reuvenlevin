@@ -90,6 +90,18 @@ public class Operations {
                         System.out.println("issueID: " + newIssue + " Description: " + newDesc + " was added");
 
                     }
+                    case "DEL" ->{
+                        String IssueID = fields[1];
+                        for(Storeable storeable: BigdataApp.storeables){
+                            // If issueID does not exist. If condition would return false and throw an exception
+                            if(!storeable.deleteRow(IssueID)){
+                                throw new IllegalArgumentException("ID does not exist. Please enter a valid ID");
+                            }
+                            storeable.deleteRow(IssueID);
+                        }
+                        System.out.println("IssueID: " + IssueID + " was deleted");
+
+                    }
 
                     default -> System.out.println("Unknown Operation: " + fields[0]);
                 }
